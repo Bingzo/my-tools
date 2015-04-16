@@ -1,0 +1,10 @@
+Control-file for drawing bands
+ 2                ! NDIR
+ 50               ! NN
+'G'   0.50        ! starting point and length of line 5
+ .000 .000 .000   ! G
+ .000 .500 .000
+'M'  0.50
+ .000  .500 .000  ! X
+ .000  .000 .000
+

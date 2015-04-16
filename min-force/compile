@@ -1,0 +1,1 @@
+g++ min_force.cpp -o run

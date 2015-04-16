@@ -1,0 +1,41 @@
+# Comment line      # All the lines with a leading "#" are regarded as comment line.
+numOfTypes	1
+
+BEGIN ELEMENT
+# basic parameters (MUST!)
+elt	Fe	# element symbol
+ielt	26	# atomic number of element
+lat	bcc	# reference structure; Options: fcc,bcc,dia,hcp,dim
+Z	8	# number of first-nearest neighbors in the reference structure
+E0	4.29000000	# sublimation energy; esub in LAMMPS
+R0	2.48202881	# nearest neighbor distance; similar with alat in LAMMPS
+a	5.07292627	# alpha; alat in LAMMPS
+A	0.89000000	# A; asub in LAMMPS
+b0	2.93500000	# beta0
+b1	1.00000000	# beta1
+b2	1.00080073	# beta2
+b3	1.00000000	# beta3
+t0	1.00000000	# t0
+t1	3.51579244	# t1
+t2	4.12042448	# t2
+t3	-2.70000000	# t3
+
+# auxiliary parameters (If supplied, default values will be rewritten.)
+rho0	1.00000000	# density scaling parameter; rozero in LAMMPS; default = 1.0
+gscheme	1	# density scaling parameter; rozero in LAMMPS; default = 1.0
+			# 1: G = 2/(1+exp(-Gamma)) (default)
+			# 2: G = sqrt(1+Gamma)
+			# 3: G = exp(Gamma/2)
+END ELEMENT
+
+BEGIN PAIR
+END PAIR
+
+BEGIN GLOBAL
+# global parameters
+rc	4.00000000	# cutoff radius for cufoff function (default 4.0)
+delr	0.10000000	# length of smoothing distance for cutoff function (default 0.1)
+augt1	1	# switch for whether to augment t1 parameter
+			# 0: don't augment t1
+			# 1: augment t1 by 3/5*t3 (default)
+END GLOBAL

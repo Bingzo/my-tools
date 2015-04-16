@@ -1,0 +1,242 @@
+\documentclass[aps,twocolumn,prb,superscriptaddress]{revtex4}     % for final submission
+%\documentclass[aps,showpacs,prb]{revtex4}
+%\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\begin{document}
+\begin{spacing}{1.5}
+
+\title{A study of MPI-based parallel programming in molecular dynamics program LAMMPS}
+
+\author{Bing Zhou M201370392}
+
+\affiliation{State Key Laboratory of Digital Manufacturing Equipment and Technology and School of Mechanical Science and Engineering, Huazhong University of Science and Technology, Wuhan 430074, Hubei, People's Republic of China}
+\email{zhoubinghust@126.com}
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+ This article introduces the MD(Molecular dynamics) program LAMMPS(Large-scale Atomic/ Molecular Massively Parallel Simulator) and analysis the implementation of parallel programming techniques in LAMMPS. The parallelization effectively enhance the performance of LAMMPS and make it possible to simulate large-scale systems. And the possible optimizations of LAMMPS are discussed.\\
+\smallskip
+\noindent \textbf{Keywords:} MD, LAMMPS, parallel programming ÎÒ
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} \label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+With the development of super-computers, techniques based on computer science have been highly matured. One of the important techniques is the parallel computing. This method has been widely applied to the domains of biology, physics, materials, and other scientific areas. Molecular dynamics is such an area that requires high performance of computation. LAMMPS, an acronym for Large-scale Atomic/Molecular Massively Parallel Simulator, is a classical molecular dynamics code. And it is distributed as open source code under the terms of the GPL. This article will give a perspective of parallel programming in LAMMPS.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Molecular Dynamics} \label{sec:MD}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Molecular dynamics (MD) is a computer simulation of physical movements of atoms and molecules in the context of N-body simulation. The atoms and molecules are allowed to interact for a period of time, giving a view of the motion of the atoms. In the most common version, the trajectories of atoms and molecules are determined by numerically solving the Newton's equations of motion for a system of interacting particles, where forces between the particles and potential energy are defined by molecular mechanics force fields. The method was originally conceived within theoretical physics in the late 1950s but is applied today mostly in chemical physics, materials science and the modeling of biomolecules.
+
+Because molecular systems consist of a vast number of particles, it is impossible to find the properties of such complex systems analytically; MD simulation circumvents this problem by using numerical methods. However, long MD simulations are mathematically ill-conditioned, generating cumulative errors in numerical integration that can be minimized with proper selection of algorithms and parameters, but not eliminated entirely.
+
+\subsection{LAMMPS}
+LAMMPS ("Large-scale Atomic/Molecular Massively Parallel Simulator") is a molecular dynamics program from Sandia National Laboratories. LAMMPS makes use of MPI for parallel communication and is free, open-source software, distributed under the terms of the GNU General Public License.
+
+For computational efficiency LAMMPS uses neighbor lists to keep track of nearby particles. The lists are optimized for systems with particles that are repulsive at short distances, so that the local density of particles never becomes too large.
+
+On parallel computers, LAMMPS uses spatial-decomposition techniques to partition the simulation domain into small 3d sub-domains, one of which is assigned to each processor. Processors communicate and store "ghost" atom information for atoms that border their sub-domain. LAMMPS is most efficient (in a parallel computing sense) for systems whose particles fill a 3D rectangular box with approximately uniform density.
+
+\subsection{Steps of MD simulation}
+A MD simulation usually consists of three main steps:\\
+(1) specify an initial state as an input, \\
+(2) calculate the interactions between atoms and make movements of  particles, and\\
+(3) give the outputs by analysing the physics behind data. \\
+The parallel computation lays in the second step. The system always involves millions of atoms, which makes the simulation complicated. In this step:\\
+(1) forces on atoms are calculated,\\
+(2) neighbor lists are built,\\
+(3) velocities and positions of atoms are updated, and \\
+(4) optimization algorithms are implemented.\\
+
+\subsection{Force calculation}
+In MD, the interactions between atoms are referred to as "force field". Force field may have various kinds of forms, like LJ, Morse, Tersoff, EAM, MEAM and so on. One of the simplest models is LJ potential\cite{Ref_2}. It can be described as:
+\begin{equation}
+U(r) = 4\epsilon\Big[\Big(\frac{\sigma}{r}\Big)^{12}- \Big(\frac{\sigma}{r}\Big)^{6}\Big]
+\end{equation}
+where r is the distance between two particles. $\epsilon$ represents the depth of the energy, $\sigma$ is the finite distance at which the interaction turns zero. It can be pictured in Fig.\ref{fig:lj_potential}
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=0.5\textwidth]{figures/LJ.png}\\
+  \caption{A graph of strength versus distance for Lennard-Jones potential.}\label{fig:lj_potential}
+\end{figure}
+Thus, the force $\vec{F}(\vec{r})$ between particles can be derived:
+\begin{equation}
+\vec{F}(\vec{r})=-\vec{\bigtriangledown}U(r)=4\epsilon\Big[\Big(\frac{\sigma}{r}\Big)^{12}- \Big(\frac{\sigma}{r}\Big)^{6}\Big]\frac{\vec{r}}{r^2}
+\end{equation}
+Usually, a cutoff of radius $r_c$ is applied to save the computation time:
+\begin{eqnarray}
+U_c(r)=\begin{cases}U(r) &r\leq{r_c}\\0 &r>{r_c}\end{cases}
+\end{eqnarray}
+\begin{eqnarray}
+\vec{F_c}(\vec{r})=\begin{cases}\vec{F}(\vec{r}) &r\leq{r_c}\\0 &r>{r_c}\end{cases}
+\end{eqnarray}
+
+\subsection{Neighbor list}
+In MD simulations, neighbors of a special atom is needed for its force calculation. Two kinds of listing neighbors in MD are widely used\cite{Ref_1, Ref_allen}. One is Verlet neighbor list(Fig. \ref{fig:verlet_nei}); the other is cell-linked list(Fig. \ref{fig:cell_nei}).As LJ potential implies, the distance r plays an important role in force calculation. Also neighbor list is constructed with respect to distances. Atoms in the region of $r_c$ should be considered.Calculating all distances of neighbor list of each atoms is a laborious work for computers. Take a system of N atoms as an example, in this system, every atom within the circle of $r_{c}$ has a list of M neighbors. Then the calculation of distances, forces and velocities should be implemented $N\times{M}$ times.
+
+
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=0.5\textwidth]{figures/verlet.png}\\
+  \caption{A graph of verlet neighbor list.}\label{fig:verlet_nei}
+\end{figure} Verlet method(Fig. \ref{fig:verlet_nei}) specifies $r_{cut}$ as cutoff radius, $r_m$ as neighbor radius which means atoms locating in the circle of $r_m$ are considered as neighbors. Verlet method of building neighbor list is to watch atoms just locating in "Skin" region. In this region, when large movements of atoms are found, the neighbor list will be updated. Otherwise, the neighbor lists remain the same. However, the pay off is that atoms within $r_m$ should be considered, which are more than those within $r_{cut}$. The complex computation is implemented when the the neighbor list is updated instead of every time step.
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=0.5\textwidth]{figures/cell.png}\\
+  \caption{A graph of cell-linked neighbor list.}\label{fig:cell_nei}
+\end{figure}
+
+Verlet method plays well when atoms are below millions. However, its complexity is still $\mathcal{O}(n^2)$.  Cell-linked method(Fig. \ref{fig:cell_nei}) is provoked to deal with millions of atoms, with a complexity of $\mathcal{O}(n)$, and is well performed with parallel programming. This method can be implemented in the following steps:
+(1) N atoms are divided into $M\times{M}\times{M}$ cells,
+(2) take the atom we considered is in Cell 13, we now just need to consider its 27 neighboring cells 17, 18, 19, 14, 9, 8, 7, 12 and 21, 22, etc. The complexity is thus $N\times{\frac{N}{M^3}}$ . It should be noted that in this way, data are easily decomposed or partitioned using parallel programming technique.
+
+\subsection{Velocity and position update}
+The fundamental equations of calculating velocity is $\frac{d\vec{v}}{dt}=\frac{\vec{F}}{m}$ and $\frac{d\vec{r}}{dt}=\vec{v}$. Usually, Verlet algorithm is used to update positions and velocities of atoms in MD simulations. The equations can be tricky, evolving into several different forms. The basic equations are as following:
+\begin{equation}
+\vec{r}(t+\delta{t})=2\vec{r}-\vec{r}(t-\delta{t})+\frac{\vec{F}}{m}{\delta{t}}^2
+\end{equation}
+\begin{equation}
+\vec{v}(t)=\frac{\vec{r}(t+\delta{t})-\vec{r}(t-\delta{t})}{2\delta{t}}
+\end{equation}
+
+\subsection{Optimization algorithm}
+A lot of models of optimization algorithms have been developed so far. Some of them are gradient descent, genetic algorithms, BFGS method, Gauss¨CNewton algorithm, line search, etc. They are the way to find the best point in a large area. In MD simulations, it is always needed to find the minimum  energy in structures, and the atoms are tend to move to a more stable state.
+
+
+BFGS method, Gauss-Newton algorithm are usually implemented in simulation process. PSO and genetic algorithms also can be find in some complex requirements for finding a global minimum.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Parallel programming in LAMMPS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Environment}
+I worked on TC3600(Sugon) blade server, which has 8 nodes and each node can have 16 threads, operating with CentOS 5.5. The process of installation can be specified as follows: (1) install mpich-3.0.4 to \$HOME/opt, (2) install fftw3.3 to \$HOME/opt/fftw3, then (3) install lammps(7Jan14) with the following script:
+
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=lines,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color{red}\bfseries,
+    stringstyle=\color{green!50!black},
+    commentstyle=\color{gray}\itshape,
+%    numbers=left,
+    captionpos=t,
+    escapeinside={\%*}{*)}
+}
+\begin{lstlisting}[language=Awk]
+#! /bin/bash
+set -e
+INSTALL_DIR=$HOME/opt
+cd src
+cp MAKE/Makefile.g++3 MAKE/Makefile.foo
+sed -i "s@-DMPICH_SKIP_MPICXX@-DMPICH_SKIP_MPICXX\t-I\t$INSTALL_DIR\/include@g" MAKE/Makefile.foo
+sed -i "s@MPI_PATH\ =@MPI_PATH\ =\t-L\t$INSTALL_DIR\/lib@g" MAKE/Makefile.foo
+sed -i "s/-lpthread/-lpthread\t-lmpl\t-lirc/g" MAKE/Makefile.foo
+sed -i "s@FFT_PATH\ =@FFT_PATH\ =\t-L\t$INSTALL_DIR\/fftw3\/lib@g" MAKE/Makefile.foo
+sed -i "s@-DFFT_FFTW@-DFFT_FFTW\t-I\t$INSTALL_DIR\/fftw3\/include@g" MAKE/Makefile.foo
+sed -i "s/-lfftw/-lfftw3/g" MAKE/Makefile.foo
+make foo && cp lmp_foo $HOME/bin/lammps
+\end{lstlisting}
+After the installation, we now can parallelly run LAMMPS with MPI:
+\begin{lstlisting}
+mpirun -np 16 lammps -i in.lmp
+\end{lstlisting}
+Where 16 is the number of processors you want to run lammps, in.lmp is the input file for lammps.
+
+\subsection{Parallel code analysis}
+As mentioned before, LAMMPS uses spatial-decomposition techniques to partition the simulation domain. The map is created in the file procmap.cpp. First a 3d grid of processors is created, then MPI\_Cart routines are used to map processors to 3d grid. All codes related to communications are in file comm.cpp. Comm is the top-level class of communications. Atoms specified by the input file are partitioned and assigned to the 3d grid. And thus the neighbors of the grid is also the neighbors of real atoms according to cell-linked method. MPI\_Send and MPI\_Irecv are common routines in comm.cpp. A typical block of code is as:
+\begin{lstlisting}
+  // swap atoms with other proc
+  // no MPI calls except SendRecv if nsend/nrecv = 0
+  // put incoming ghosts at end of my atom arrays
+  // if swapping with self, simply copy, no messages
+
+  if (sendproc[iswap] != me) {
+    MPI_Sendrecv(&nsend,1,MPI_INT,sendproc[iswap],0,&nrecv,1,MPI_INT,recvproc[iswap],0,world,&status);
+    if (nrecv*size_border > maxrecv) grow_recv(nrecv*size_border);
+    if (nrecv) MPI_Irecv(buf_recv,nrecv*size_border,MPI_DOUBLE, recvproc[iswap],0,world,&request);
+    if (n) MPI_Send(buf_send,n,MPI_DOUBLE,sendproc[iswap],0,world);
+    if (nrecv) MPI_Wait(&request,&status);
+    buf = buf_recv;
+  } else {
+    nrecv = nsend;
+    buf = buf_send;
+  }
+\end{lstlisting}
+Detailed information of parallel programming of cell-linked neighbor list method can be got in Pinches, etc.'s "Large scale molecular dynamics on parallel computers using the link-cell algorithm."\cite{Ref_3, Ref_4, Ref_5}.
+\subsection{Performance}
+Fig. \ref{fig:mpi}\cite{Ref_6} shows general information of MPI's implementations in LAMMPS.
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=0.5\textwidth]{figures/mpi.png}\\
+  \caption{Comparison of the amount of time spent in different MPI routines (obtained using the MPITrace
+profiling tool) for the rhodopsin protein benchmark (2048000 atoms) for large processor counts on HPCx.}\label{fig:mpi}
+\end{figure}
+With the parallel programming, time is saved a lot. Fig. \ref{fig:exec_time}\cite{Ref_6} gives a overlook of execution time of LAMMPS with the number of processors increases.
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=0.5\textwidth]{figures/exec_time.png}\\
+  \caption{Comparison of the execution time of LAMMPS using the rhodopsin protein benchmark (2048000
+atoms) on XCmaster, HPCx and Blue Gene CO and VN modes.}\label{fig:exec_time}
+\end{figure}
+
+\section{Possible optimizations}
+A lot of optimizations may be possible:\\
+(1)\textbf{Shared memory} - LAMMPS do not use shared memory in its implementation. I think it is because it will make the program complicated and also on some machines, it may reversely have side effects.\\
+(2)\textbf{Loop partition} - Parallelization in LAMMPS only lays in distributing atoms to their relative processors. Mathematical operations in a loop remain unparalleled. When calculating forces or searching minimum energy, it always involves large number of operations although the atoms have been distributed.\\
+(3)\textbf{Dynamic arrays} - Arrays in LAMMPS tend to have the maximum size, which may be a waste of resources and also may snag the system sometimes. STL(Standard template library) seems be neglected by LAMMPS. I don't know the exact reason. But in my experience, STL usually makes programming effective and easy.\\
+(4)\textbf{Multiply} - Divide can be replaced by Multiply, so the processors can be more effective.\\
+(5)\textbf{If} - Sometimes the distance of two atoms may be close to 0.0. In this case, the whole calculations can be neglected with a "If" because of its meaningless.\\
+(6)\textbf{Local variables} - Local variables can accelerate programs, but also cost more stack memories.\\
+(7)\textbf{One-side force} - It's not necessary to calculate all interactions between all different atoms. As Newton's 3rd law indicates, $F_{ij}=F_{ji}$. So the interaction between two atoms just need to be calculated once.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions} \label{sec:conclusions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Most of the laborious work of MD is the force calculation of large-scale systems. However, with smart algorithms and parallel programming technique, it's possible to greatly shorten the execution time of MD simulations.
+
+On parallel computers, LAMMPS uses spatial-decomposition techniques to partition the simulation domain into small 3d sub-domains, one of which is assigned to each processor\cite{Ref_7}. MPI(Message Passing Interface) is used to make the parallelization possible.
+
+There still exit ways to optimizing LAMMPS, though the program is highly developed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgements}
+The author gratefully thank Prof. Yuan and Prof. Shi for the introduction of parallel programming, Prof. Shan for the use of TC3600 server.
+\end{acknowledgements}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+\bibitem{Ref_1} S. Plimpton, Fast Parallel Algorithms for Short-Range Molecular Dynamics, J Comp Phys, 117, 1-19 (1995).
+\bibitem{Ref_allen} Allen, Michael P., and Dominic J. Tildesley, eds. Computer simulation of liquids. Oxford university press, 1989.
+\bibitem{Ref_2} Smit, B. "Phase diagrams of Lennard-Jones fluids." Journal of chemical physics 96.11 (1992): 8639-8640.
+\bibitem{Ref_3} Refson, Keith. "Moldy: a portable molecular dynamics simulation program for serial and parallel computers." Computer Physics Communications 126.3 (2000): 310-329.
+\bibitem{Ref_4} Stadler, J., R. Mikulla, and H-R. Trebin. "IMD: A software package for molecular dynamics studies on parallel computers." International Journal of Modern Physics C 8.05 (1997): 1131-1140.
+\bibitem{Ref_5} Pinches, M. R. S., D. J. Tildesley, and W. Smith. "Large scale molecular dynamics on parallel computers using the link-cell algorithm." Molecular Simulation 6.1-3 (1991): 51-87.
+\bibitem{Ref_6} McKenna, Geraldine. "Performance analysis and optimisation of LAMMPS on XCmaster, HPCx and Blue Gene." (2007).
+\bibitem{Ref_7} Wikipedia, LAMMPS, http://en.wikipedia.org/wiki\\/Message\_Passing\_Interface.
+\end{thebibliography}
+
+\end{spacing}
+\end{document}
+%
+% ****** End of file apssamp.tex ******

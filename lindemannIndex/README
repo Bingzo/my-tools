@@ -1,0 +1,8 @@
+
+run programs in this directory as:
+
+            ./calLindemannIndex <dump-filename>
+            example: ./calLindemannIndex np.300.atom
+
+            ./cal5lat <dump-filename>
+            example: ./cal5lat np.300.atom

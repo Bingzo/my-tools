@@ -1,0 +1,1085 @@
+Warning: No display specified.  You will not be able to display graphics on the screen.
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2010 The MathWorks, Inc.
+                Version 7.11.0.584 (R2010b) 64-bit (glnxa64)
+                              August 16, 2010
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> >> >> >> >> >> >> >> >> >> >> 
+xi =
+
+    0.1785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.234
+C12: 1.388
+C44: 0.851
+
+... calculate vacancy formation energy ...
+Evacancy: 3.005
+bcc2fcc: .06905
+surf110: 6764
+
+ans =
+
+    2.6815
+
+
+xi =
+
+    0.1985    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.196
+C12: 1.407
+C44: 0.810
+
+... calculate vacancy formation energy ...
+Evacancy: 2.768
+bcc2fcc: .06798
+surf110: 6973
+
+ans =
+
+    2.5950
+
+
+xi =
+
+    0.2185    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.158
+C12: 1.426
+C44: 0.769
+
+... calculate vacancy formation energy ...
+Evacancy: 2.701
+bcc2fcc: .06688
+surf110: 7181
+
+ans =
+
+    2.6786
+
+
+xi =
+
+    0.2385    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.120
+C12: 1.445
+C44: 0.728
+
+... calculate vacancy formation energy ...
+Evacancy: 2.628
+bcc2fcc: .06578
+surf110: 7388 7388
+
+ans =
+
+    2.7560
+
+
+xi =
+
+    0.2585    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.082
+C12: 1.464
+C44: 0.687
+
+... calculate vacancy formation energy ...
+Evacancy: 2.558
+bcc2fcc: .06465
+surf110: 7593
+
+ans =
+
+    2.8363
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2985    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.006
+C12: 1.502
+C44: 0.605
+
+... calculate vacancy formation energy ...
+Evacancy: 2.409
+bcc2fcc: .06236
+surf110: 8001
+
+ans =
+
+    2.9878
+
+
+xi =
+
+    0.3185    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 1.968
+C12: 1.521
+C44: 0.564
+
+... calculate vacancy formation energy ...
+Evacancy: 2.334
+bcc2fcc: .06119
+surf110: 8204
+
+ans =
+
+    3.0631
+
+
+xi =
+
+    0.3385    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 1.930
+C12: 1.540
+C44: 0.523
+
+... calculate vacancy formation energy ...
+Evacancy: 2.258
+bcc2fcc: .06
+surf110: 8406 8406
+
+ans =
+
+    3.1374
+
+
+xi =
+
+    0.3585    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 1.892
+C12: 1.559
+C44: 0.482
+
+... calculate vacancy formation energy ...
+Evacancy: 2.182
+bcc2fcc: .0588
+surf110: 8606
+
+ans =
+
+    3.2114
+
+
+xi =
+
+    0.3785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 1.854
+C12: 1.578
+C44: 0.441
+
+... calculate vacancy formation energy ...
+Evacancy: 2.106
+bcc2fcc: .05758
+surf110: 8715
+
+ans =
+
+    3.2674
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
+surf110: 7798
+
+ans =
+
+    2.9157
+
+
+xi =
+
+    0.2785    4.4559    5.1440   -8.3113    8.8410    3.7594
+
+
+... calculate elastic constants ...
+C11: 2.044
+C12: 1.483
+C44: 0.646
+
+... calculate vacancy formation energy ...
+Evacancy: 2.487
+bcc2fcc: .06351
