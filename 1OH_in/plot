@@ -1,0 +1,15 @@
+#!/usr/bin/gnuplot
+#set data style lines
+#set dgrid3d
+#set surface
+#set contour surface
+#
+#set term gif
+#set output "zdos.gif"
+#splot "out.txt" using 1:2:3
+set key off
+set yrange [-2.8-3:-2.8+3]
+set term png
+set output "zdos.png"
+splot 'out.txt' using 1:2:3 with points palette pointsize 1 pointtype 7
+#pause -1  "Hit return to continue"
